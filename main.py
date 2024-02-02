@@ -2,12 +2,9 @@
 import platform
 import aiohttp
 import asyncio
-
 from http.server import HTTPServer, BaseHTTPRequestHandler
-
 import datetime
 from datetime import datetime, timedelta
-
 from rich.console import Console
 console = Console()
 
@@ -16,7 +13,7 @@ async def main():
     res_dict = {}
     res = {}
     async with aiohttp.ClientSession() as session:
-        for _ in range(10):   
+        for _ in range(3):   
             day_first = datetime.now() - timedelta(days=rah_day)
             date_to_day = day_first.strftime("%d.%m.%Y")            
             rah_day = rah_day - 1
