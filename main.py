@@ -13,7 +13,7 @@ async def main():
     res_dict = {}
     res = {}
     async with aiohttp.ClientSession() as session:
-        for _ in range(3):   
+        for _ in range(10):   
             day_first = datetime.now() - timedelta(days=rah_day)
             date_to_day = day_first.strftime("%d.%m.%Y")            
             rah_day = rah_day - 1
@@ -21,14 +21,14 @@ async def main():
                 
                 result = await response.json()
                 ress_list = result['exchangeRate']
-                
+                                
                 for ress_dict in ress_list:
                     ress_currency = ress_dict['currency']
                     ress_sale = ress_dict['saleRateNB']
                     ress_purchase = ress_dict['purchaseRateNB']
-                    ress_value = {ress_currency: {'sale': ress_sale, 'purchase': ress_purchase}}
-                    
-                    res_dict.update(ress_value)                   
+                    if ress_currency == 'EUR' or ress_currency == 'USD':
+                        ress_value = {ress_currency: {'sale': ress_sale, 'purchase': ress_purchase}}                    
+                        res_dict.update(ress_value)                   
             
                 res.update({result['date']: res_dict})             
                     
